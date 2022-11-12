@@ -65,8 +65,22 @@ export default function TodoList({ todos = [], setTodos }) {
     await handleUpdate(record.id, { name: record.name });
     handleClose();
   }
+  const handleCompletedTodos = todos.filter((item) => {
+    return item.completed === true
+  })
+
+  const handleInCompletedTodos = todos.filter((item) => {
+    return item.completed === false
+  })
   return <div>
-    <ListGroup>{todos.map(renderListGroupItem)}</ListGroup>
+    <div className="mb-2 mt-4">
+      Incompleted Todos ({ handleInCompletedTodos.length})
+    </div>
+     <div className="mb-2 mt-4">
+      Completed Todos ({handleCompletedTodos.length})
+    </div>
+    <ListGroup>{handleCompletedTodos.map(renderListGroupItem)}</ListGroup>
+    <ListGroup>{handleInCompletedTodos.map(renderListGroupItem)}</ListGroup>
     <Modal show={show} onHide={handleClose }>
       <Modal.Header closeButton>
         <Modal.Title>Edit Todo</Modal.Title>
